@@ -248,16 +248,38 @@ function closeModal(){
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow='';
 }
-function submitQuote(){
+async function submitQuote(){
   const name=document.getElementById('q-name').value.trim();
   const email=document.getElementById('q-email').value.trim();
+  const msg=document.getElementById('q-msg').value.trim();
+  const painting=document.getElementById('modal-painting-name').textContent;
   if(!name||!email){alert('Please enter your name and email.');return;}
-  document.querySelector('.modal').innerHTML=`
-    <div style="text-align:center;padding:2rem 0">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:1rem">Thank you, ${name}</div>
-      <p style="color:#7a6b65;font-size:0.9rem;line-height:1.8">Your enquiry has been received.<br/>I'll reach out to you at <strong>${email}</strong> soon.</p>
-    </div>`;
-  setTimeout(closeModal,3000);
+  const btn=document.querySelector('.modal-submit');
+  btn.textContent='Sending...';
+  btn.disabled=true;
+  try{
+    const res=await fetch('https://formspree.io/f/mvzjlwqr',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name,email,message:msg,painting})
+    });
+    if(res.ok){
+      document.querySelector('.modal').innerHTML=`
+        <div style="text-align:center;padding:2rem 0">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:1rem">Thank you, ${name}!</div>
+          <p style="color:#7a6b65;font-size:0.9rem;line-height:1.8">Your enquiry has been received.<br/>I'll reach out to you at <strong>${email}</strong> soon.</p>
+        </div>`;
+      setTimeout(closeModal,3000);
+    } else {
+      btn.textContent='Send Enquiry';
+      btn.disabled=false;
+      alert('Something went wrong. Please try again.');
+    }
+  } catch(e){
+    btn.textContent='Send Enquiry';
+    btn.disabled=false;
+    alert('Something went wrong. Please try again.');
+  }
 }
 
 renderGallery();
