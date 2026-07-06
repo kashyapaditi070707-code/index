@@ -97,6 +97,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .modal-submit:hover{opacity:0.85}
 .modal-painting-name{font-size:0.82rem;color:var(--warm);font-family:'Cormorant Garamond',serif;font-style:italic;margin-bottom:1.5rem}
 
+/* COMMISSION */
+.commission{padding:7rem 3rem;background:var(--rose);text-align:center}
+.commission-inner{max-width:750px;margin:0 auto}
+.commission-label{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm);margin-bottom:1rem}
+.commission-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:1.5rem}
+.commission-body{font-size:0.95rem;color:var(--muted);line-height:1.9;margin-bottom:2.5rem}
+.commission-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin:3rem 0;text-align:left}
+.step{background:var(--cream);padding:1.8rem;position:relative}
+.step-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--blush);line-height:1;margin-bottom:0.8rem}
+.step-title{font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);margin-bottom:0.6rem}
+.step-body{font-size:0.82rem;color:var(--muted);line-height:1.7}
+.commission-cta{display:inline-block;padding:0.85rem 2.4rem;background:var(--ink);color:var(--cream);font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;transition:opacity 0.2s}
+.commission-cta:hover{opacity:0.85}
+@media(max-width:700px){.commission{padding:4rem 1.5rem}.commission-steps{grid-template-columns:1fr;gap:1rem}}
+
+/* COMMISSION MODAL */
+.cmodal-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(26,22,19,0.7);align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
+.cmodal-overlay.open{display:flex}
+.cmodal{background:var(--cream);max-width:520px;width:100%;padding:2.5rem;position:relative;margin:auto}
+.cmodal-close{position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted)}
+.cmodal h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:0.4rem}
+.cmodal-sub{font-size:0.8rem;color:var(--muted);margin-bottom:1.8rem}
+.cmodal label{display:block;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
+.cmodal input,.cmodal textarea,.cmodal select{width:100%;border:0.5px solid var(--blush);background:white;padding:0.7rem 0.9rem;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);margin-bottom:1.2rem;outline:none;resize:none;appearance:none}
+.cmodal input:focus,.cmodal textarea:focus,.cmodal select:focus{border-color:var(--warm)}
+.cmodal-submit{width:100%;padding:0.85rem;background:var(--ink);color:var(--cream);border:none;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s}
+.cmodal-submit:hover{opacity:0.85}
+
 /* FOOTER */
 footer{border-top:0.5px solid var(--blush);padding:3rem;text-align:center;color:var(--muted);font-size:0.78rem;letter-spacing:0.08em}
 footer strong{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;display:block;margin-bottom:0.5rem;color:var(--ink)}
@@ -118,6 +146,7 @@ footer strong{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:
     <a href="#about">About</a>
     <a href="#gallery">Gallery</a>
     <a href="#" onclick="openQuote('a painting');return false">Get a Quote</a>
+    <a href="#commission">Commission</a>
   </div>
 </nav>
 
@@ -180,6 +209,67 @@ footer strong{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:
     <label>Message (optional)</label>
     <textarea id="q-msg" rows="3" placeholder="Any questions about the piece, framing, delivery..."></textarea>
     <button class="modal-submit" onclick="submitQuote()">Send Enquiry</button>
+  </div>
+</div>
+
+<!-- COMMISSION -->
+<section class="commission" id="commission">
+  <div class="commission-inner">
+    <p class="commission-label">Custom Work</p>
+    <h2 class="commission-title">Commission an Artwork</h2>
+    <p class="commission-body">Want something made just for you? I take on a limited number of commissions — portraits, pets, abstracts, or anything you can imagine. Every commissioned piece is painted with the same care and emotion as my originals.</p>
+    <div class="commission-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Share Your Vision</div>
+        <div class="step-body">Tell me what you have in mind — a subject, a feeling, a colour palette, or even just a reference image. No idea is too big or too vague.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">We Discuss & Agree</div>
+        <div class="step-body">I'll get back to you with a quote, timeline, and size options. Once we're aligned, I begin work after a 50% advance.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Art Arrives at Your Door</div>
+        <div class="step-body">Your one-of-a-kind painting is finished, signed, and delivered — ready to hang and made to last a lifetime.</div>
+      </div>
+    </div>
+    <button class="commission-cta" onclick="openCommissionModal()">Start a Commission</button>
+  </div>
+</section>
+
+<!-- COMMISSION MODAL -->
+<div class="cmodal-overlay" id="cmodal-overlay" onclick="if(event.target===this)closeCommissionModal()">
+  <div class="cmodal">
+    <button class="cmodal-close" onclick="closeCommissionModal()">×</button>
+    <h2>Commission a Painting</h2>
+    <p class="cmodal-sub">Fill in the details below and I'll get back to you within 2–3 days.</p>
+    <label>Your Name</label>
+    <input type="text" id="c-name" placeholder="e.g. Priya Sharma"/>
+    <label>Email</label>
+    <input type="email" id="c-email" placeholder="your@email.com"/>
+    <label>Type of Artwork</label>
+    <select id="c-type">
+      <option value="">Select a type...</option>
+      <option>Portrait (Person)</option>
+      <option>Pet Portrait</option>
+      <option>Abstract</option>
+      <option>Landscape</option>
+      <option>Still Life</option>
+      <option>Other / Not Sure</option>
+    </select>
+    <label>Preferred Size</label>
+    <select id="c-size">
+      <option value="">Select a size...</option>
+      <option>Small (up to 12×12 in)</option>
+      <option>Medium (12×18 or 18×24 in)</option>
+      <option>Large (24×36 in or bigger)</option>
+      <option>Not sure, open to suggestions</option>
+    </select>
+    <label>Tell me about your vision</label>
+    <textarea id="c-vision" rows="4" placeholder="Describe what you'd like — subject, mood, colours, any reference images you have in mind..."></textarea>
+    <button class="cmodal-submit" onclick="submitCommission()">Send Request</button>
   </div>
 </div>
 
@@ -283,6 +373,46 @@ async function submitQuote(){
 }
 
 renderGallery();
+
+function openCommissionModal(){
+  document.getElementById('cmodal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeCommissionModal(){
+  document.getElementById('cmodal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+async function submitCommission(){
+  const name=document.getElementById('c-name').value.trim();
+  const email=document.getElementById('c-email').value.trim();
+  const type=document.getElementById('c-type').value;
+  const size=document.getElementById('c-size').value;
+  const vision=document.getElementById('c-vision').value.trim();
+  if(!name||!email||!vision){alert('Please fill in your name, email, and vision.');return;}
+  const btn=document.querySelector('.cmodal-submit');
+  btn.textContent='Sending...';btn.disabled=true;
+  try{
+    const res=await fetch('https://formspree.io/f/mvzjlwqr',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name,email,type,size,vision,_subject:'New Commission Request'})
+    });
+    if(res.ok){
+      document.querySelector('.cmodal').innerHTML=`
+        <div style="text-align:center;padding:2rem 0">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:1rem">Thank you, ${name}!</div>
+          <p style="color:#7a6b65;font-size:0.9rem;line-height:1.8">Your commission request has been received.<br/>I'll be in touch at <strong>${email}</strong> within 2–3 days.</p>
+        </div>`;
+      setTimeout(closeCommissionModal,3000);
+    } else {
+      btn.textContent='Send Request';btn.disabled=false;
+      alert('Something went wrong. Please try again.');
+    }
+  } catch(e){
+    btn.textContent='Send Request';btn.disabled=false;
+    alert('Something went wrong. Please try again.');
+  }
+}
 </script>
 </body>
 </html>
